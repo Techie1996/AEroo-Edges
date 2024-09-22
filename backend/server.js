@@ -21,7 +21,9 @@ mongoose.connect('mongodb+srv://govindayadav962:nKBWWSkSwMUzlVyN@cluster0.bb6qy.
   useUnifiedTopology: true,
 });
 
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../build', 'index.html'));
+});
 // Item Schema
 const itemSchema = new mongoose.Schema({
   name: { type: String, required: true },
