@@ -49,10 +49,10 @@ const App = () => {
                 <li key={index}><Link to={`/${section.title.toLowerCase().replace(' ', '-')}`}>{section.title}</Link></li>
               ))}
               <li>
-                <Link to="/item-form">Show Form</Link>
+                {/* <Link to="/item-form">Show Form</Link> */}
               </li>
               <li>
-                <Link to="/signup">Sign Up</Link>
+                {/* <Link to="/signup">Sign Up</Link> */}
               </li>
             </ul>
           </nav>

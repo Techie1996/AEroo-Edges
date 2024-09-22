@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path'); // Import the path module
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -11,19 +12,18 @@ app.use(cors());
 app.use(express.json());
 
 // Connect to MongoDB
-// mongoose.connect('mongodb://localhost:27017/mern-crud', {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// });
-// Connect to MongoDB
 mongoose.connect('mongodb+srv://govindayadav962:nKBWWSkSwMUzlVyN@cluster0.bb6qy.mongodb.net/mern-crud?retryWrites=true&w=majority&appName=Cluster0', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../build')));
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../build', 'index.html'));
 });
+
 // Item Schema
 const itemSchema = new mongoose.Schema({
   name: { type: String, required: true },
