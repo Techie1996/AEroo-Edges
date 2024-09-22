@@ -9,7 +9,7 @@ const SignupForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://aeroo-edges.onrender.com/api/signup', {
+      const response = await axios.post('/api/signup', {
         username,
         email,
         password,
