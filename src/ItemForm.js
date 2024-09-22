@@ -12,17 +12,17 @@ const ItemForm = () => {
   }, []);
 
   const fetchItems = async () => {
-    const response = await axios.get('http://localhost:5000/api/items');
+    const response = await axios.get('https://aeroo-edges.onrender.com/api/items');
     setItems(response.data);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (editing) {
-      await axios.put(`http://localhost:5000/api/items/${editing}`, { name });
+      await axios.put(`https://aeroo-edges.onrender.com/api/items/${editing}`, { name });
       setEditing(null);
     } else {
-      await axios.post('http://localhost:5000/api/items', { name });
+      await axios.post('https://aeroo-edges.onrender.com/api/items', { name });
     }
     setName('');
     fetchItems();
@@ -34,7 +34,7 @@ const ItemForm = () => {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:5000/api/items/${id}`);
+    await axios.delete(`https://aeroo-edges.onrender.com/api/items/${id}`);
     fetchItems();
   };
 
