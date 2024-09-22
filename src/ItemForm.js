@@ -11,31 +11,51 @@ const ItemForm = () => {
     fetchItems();
   }, []);
 
-  const fetchItems = async () => {
-    const response = await axios.get('/api/items');
+const fetchItems = async () => {
+  try {
+    const response = await axios.get('https://aeroo-edges.onrender.com/api/items');
+    console.log('Fetched items:', response.data); // Log the fetched data
     setItems(response.data);
-  };
+  } catch (error) {
+    console.error('Error fetching items:', error); // Log the error
+  }
+};
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (editing) {
-      await axios.put(`/api/items/${editing}`, { name });
-      setEditing(null);
-    } else {
-      await axios.post('/api/items', { name });
+    console.log('Submitting form with name:', name); // Log form submission
+    try {
+      if (editing) {
+        await axios.put(`https://aeroo-edges.onrender.com/api/items/${editing}`, { name });
+        console.log(`Updated item ${editing} with name:`, name); // Log update action
+        setEditing(null);
+      } else {
+        await axios.post('https://aeroo-edges.onrender.com/api/items', { name });
+        console.log('Added new item with name:', name); // Log add action
+      }
+      setName('');
+      fetchItems();
+    } catch (error) {
+      console.error('Error submitting form:', error); // Log submit errors
     }
-    setName('');
-    fetchItems();
   };
 
   const handleEdit = (item) => {
     setName(item.name);
     setEditing(item._id);
+    console.log('Editing item:', item); // Log edit action
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`/api/items/${id}`);
-    fetchItems();
+    try {
+      await axios.delete(`https://aeroo-edges.onrender.com/api/items/${id}`);
+      console.log(`Deleted item with id: ${id}`); // Log delete action
+      fetchItems();
+    } catch (error) {
+      console.error('Error deleting item:', error); // Log delete errors
+    }
   };
 
   return (
@@ -83,7 +103,7 @@ const ItemForm = () => {
       </form>
 
       <ul style={{ marginTop: '20px' }}>
-        {items.map(item => (
+        {items?.map(item => (
           <li key={item._id} style={{ margin: '10px 0' }}>
             {item.name}
             <button onClick={() => handleEdit(item)} style={{
