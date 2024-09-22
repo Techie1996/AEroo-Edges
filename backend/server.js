@@ -1,4 +1,5 @@
 // server.js
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -16,11 +17,13 @@ app.use(express.json());
 //   useUnifiedTopology: true,
 // });
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://govindayadav962:nKBWWSkSwMUzlVyN@cluster0.bb6qy.mongodb.net/mern-crud?retryWrites=true&w=majority&appName=Cluster0', {
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
+console.log(process.env.MONGODB_URI)
 
 // Item Schema
 const itemSchema = new mongoose.Schema({
